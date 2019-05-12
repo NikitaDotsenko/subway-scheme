@@ -19,15 +19,15 @@ class BranchesTableSeeder extends Seeder
 
         $branches = [
             [
-                'name' => __('branches.branch_names.red_branch') . ' ' . __('branches.branch'),
+                'name' => 'Холодногорско-Заводская линия',
                 'color' => 'red'
             ],
             [
-                'name' => __('branches.branch_names.blue_branch') . ' ' . __('branches.branch'),
+                'name' => 'Салтовская линия',
                 'color' => 'blue'
             ],
             [
-                'name' => __('branches.branch_names.green_branch') . ' ' . __('branches.branch'),
+                'name' => 'Алексеевская линия',
                 'color' => 'green'
             ]
         ];
