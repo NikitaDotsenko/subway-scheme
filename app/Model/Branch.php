@@ -10,7 +10,8 @@ class Branch extends Model
 
     public $timestamps = false;
 
-    public function stations(){
+    public function stations()
+    {
         return $this->belongsToMany(Station::class);
     }
 }
