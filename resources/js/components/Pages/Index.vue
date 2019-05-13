@@ -1,7 +1,5 @@
 <template>
     <layout>
-        <h1>Welcome</h1>
-        <p>Welcome to my first Inertia.js app!</p>
         <Canvas></Canvas>
     </layout>
 </template>
@@ -16,7 +14,7 @@
             Layout,
         },
         props:{
-            'event':null
-        }
+            'blueBranch':null
+        },
     }
 </script>

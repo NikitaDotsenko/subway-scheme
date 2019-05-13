@@ -8,6 +8,7 @@
 
     export default {
         name: "Canvas",
+        inject: ['page'],
         mounted() {
             var width = window.innerWidth;
             var height = window.innerHeight;
@@ -43,7 +44,7 @@
 
             // complex dashed and dotted line
             var blueLine = new Konva.Line({
-                points: [300, 400, 450, 200, 600, 100, 750, 50],
+                points: this.getBranchCoords(this.page.props.blueBranch),
                 stroke: 'blue',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -53,7 +54,7 @@
                  * of 20px followed by a line segment of 0.001px (a dot)
                  * followed by a gap of 20px
                  */
-                dash: [29, 20, 0.001, 20]
+                // dash: [29, 20, 0.001, 20]
             });
 
             /*
@@ -61,25 +62,46 @@
              * adjust the position of each one using the
              * move() method
              */
-            // redLine.move({
-            //     x: 0,
-            //     y: 5
-            // });
-            // greenLine.move({
-            //     x: 0,
-            //     y: 55
-            // });
-            blueLine.move({
-                x: 0,
-                y: 105
-            });
+
 
             // layer.add(redLine);
             // layer.add(greenLine);
             layer.add(blueLine);
+            this.drawStations(layer, this.page.props.blueBranch);
 
             // add the layer to the stage
             stage.add(layer);
+        },
+        methods: {
+            getBranchCoords(branch) {
+                return branch.stations.map(function (station, index) {
+                    return [station.x_axis, station.y_axis]
+                }).flat()
+            },
+
+            drawStations(layer, branch) {
+                branch.stations.forEach(function (station, index) {
+                    var simpleText = new Konva.Text({
+                        x: station.x_axis - 5,
+                        y: station.y_axis - 7,
+                        text: station.name.charAt(0),
+                        fontSize: 15,
+                        fontFamily: 'Calibri',
+                        fill: 'black'
+                    });
+                    var circle = new Konva.Circle({
+                        x: station.x_axis,
+                        y: station.y_axis,
+                        radius: 10,
+                        fill: 'white',
+                        stroke: 'blue',
+                        strokeWidth: 4,
+                    });
+                    layer.add(circle)
+                    layer.add(simpleText)
+                })
+
+            }
         }
     }
 </script>
