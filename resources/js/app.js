@@ -12,4 +12,4 @@ new Vue({
             resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
         },
     }),
-}).$mount(app)
+}).$mount(app);

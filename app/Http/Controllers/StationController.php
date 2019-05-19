@@ -11,7 +11,9 @@ class StationController extends Controller
 {
     public function index(){
         return Inertia::render('Index', [
-            'blueBranch' => Branch::whereId(2)->first()->load(['stations'])->toArray(),
+            'blueBranch' => Branch::find(2)->load(['stations'])->toArray(),
+            'redBranch' => Branch::find(1)->load(['stations'])->toArray(),
+            'greenBranch' => Branch::find(3)->load(['stations'])->toArray()
         ]);
     }
 }

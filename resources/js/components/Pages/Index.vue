@@ -14,7 +14,9 @@
             Layout,
         },
         props:{
-            'blueBranch':null
+            'blueBranch':null,
+            'redBranch':null,
+            'greenBranch':null
         },
     }
 </script>

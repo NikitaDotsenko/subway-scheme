@@ -1,17 +1,31 @@
 <template>
     <div>
-        <div id="container"></div>
+        <div id="container">
+
+        </div>
+        <StationDataModal v-if="showModal" @close="showModal = false" :station="currentStation"
+                          :coords="currentStationCoords">
+        </StationDataModal>
     </div>
 </template>
 
 <script>
+    import StationDataModal from "../Modals/StationDataModal";
 
     export default {
         name: "Canvas",
+        components: {StationDataModal},
         inject: ['page'],
+        data: function () {
+            return {
+                showModal: false,
+                currentStation: null,
+                currentStationCoords: []
+            }
+        },
         mounted() {
-            var width = window.innerWidth;
-            var height = window.innerHeight;
+            var width = 1000;
+            var height = 1000;
 
             var stage = new Konva.Stage({
                 container: 'container',
@@ -21,28 +35,22 @@
 
             var layer = new Konva.Layer();
 
-            // var redLine = new Konva.Line({
-            //     points: [5, 70, 140, 23, 250, 60, 300, 20],
-            //     stroke: 'red',
-            //     strokeWidth: 15,
-            //     lineCap: 'round',
-            //     lineJoin: 'round'
-            // });
-            //
-            // // dashed line
-            // var greenLine = new Konva.Line({
-            //     points: [5, 70, 140, 23, 250, 60, 300, 20],
-            //     stroke: 'green',
-            //     strokeWidth: 2,
-            //     lineJoin: 'round',
-            //     /*
-            //      * line segments with a length of 33px
-            //      * with a gap of 10px
-            //      */
-            //     dash: [33, 10]
-            // });
+            var redLine = new Konva.Line({
+                points: this.getBranchCoords(this.page.props.redBranch),
+                stroke: 'red',
+                strokeWidth: 10,
+                lineCap: 'round',
+                lineJoin: 'round'
+            });
 
-            // complex dashed and dotted line
+            var greenLine = new Konva.Line({
+                points: this.getBranchCoords(this.page.props.greenBranch),
+                stroke: 'green',
+                strokeWidth: 10,
+                lineCap: 'round',
+                lineJoin: 'round'
+            });
+
             var blueLine = new Konva.Line({
                 points: this.getBranchCoords(this.page.props.blueBranch),
                 stroke: 'blue',
@@ -64,10 +72,13 @@
              */
 
 
-            // layer.add(redLine);
             // layer.add(greenLine);
             layer.add(blueLine);
-            this.drawStations(layer, this.page.props.blueBranch);
+            layer.add(redLine);
+            layer.add(greenLine);
+            this.drawStations(layer, this.page.props.blueBranch, this.page.props.blueBranch.color);
+            this.drawStations(layer, this.page.props.redBranch, this.page.props.redBranch.color);
+            this.drawStations(layer, this.page.props.greenBranch, this.page.props.greenBranch.color);
 
             // add the layer to the stage
             stage.add(layer);
@@ -79,26 +90,46 @@
                 }).flat()
             },
 
-            drawStations(layer, branch) {
+            drawStations(layer, branch, color) {
+                let component = this;
                 branch.stations.forEach(function (station, index) {
-                    var simpleText = new Konva.Text({
+                    let simpleText = new Konva.Text({
                         x: station.x_axis - 5,
                         y: station.y_axis - 7,
                         text: station.name.charAt(0),
                         fontSize: 15,
                         fontFamily: 'Calibri',
-                        fill: 'black'
+                        fill: 'black',
                     });
-                    var circle = new Konva.Circle({
+
+                    let circle = new Konva.Circle({
                         x: station.x_axis,
                         y: station.y_axis,
                         radius: 10,
                         fill: 'white',
-                        stroke: 'blue',
+                        stroke: color,
                         strokeWidth: 4,
+                        data: station,
+                        value: station.name.charAt(0)
                     });
-                    layer.add(circle)
-                    layer.add(simpleText)
+                    let group = new Konva.Group();
+
+                    group.add(circle);
+                    group.add(simpleText);
+                    group.on('mouseover', function () {
+                        let circleData = this.getChildren(function(node){
+                            return node.getClassName() === 'Circle';
+                        })[0];
+                        component.showModal = true;
+                        component.currentStation = circleData.getAttr('data');
+                        component.currentStationCoords = [circleData.getAttr('x'), circleData.getAttr('y')];
+                    });
+                    group.on('mouseout', function () {
+                        component.showModal = false;
+                    })
+
+                    layer.add(group);
+                    // layer.add(simpleText)
                 })
 
             }
