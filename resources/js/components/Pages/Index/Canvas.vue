@@ -6,11 +6,12 @@
         <StationDataModal v-if="showModal" @close="showModal = false" :station="currentStation"
                           :coords="currentStationCoords">
         </StationDataModal>
+        <inertia-link class="station-link" :href="stationLink"></inertia-link>
     </div>
 </template>
 
 <script>
-    import StationDataModal from "../Modals/StationDataModal";
+    import StationDataModal from "@/Modals/StationDataModal";
 
     export default {
         name: "Canvas",
@@ -20,7 +21,8 @@
             return {
                 showModal: false,
                 currentStation: null,
-                currentStationCoords: []
+                currentStationCoords: [],
+                stationLink:''
             }
         },
         mounted() {
@@ -104,7 +106,14 @@
                     group.add(circle);
                     group.add(simpleText);
 
-                    group.on('mouseover', function () {
+                    group.on('click', function () {
+                        let station = this.getChildren(function (node) {
+                            return node.getClassName() === 'Circle';
+                        })[0];
+                        component.stationLink = `/stations/${station.getAttr('data').id}`
+                        component.clickStationLink()
+                    });
+                    group.on('mouseenter', function () {
                         let circleData = this.getChildren(function (node) {
                             return node.getClassName() === 'Circle';
                         })[0];
@@ -114,13 +123,17 @@
                         component.currentStationCoords = [circleData.getAttr('x'), y];
                     });
 
-                    group.on('mouseout', function () {
+                    group.on('mouseleave', function () {
                         component.showModal = false;
                     });
+
 
                     layer.add(group);
                 })
 
+            },
+            clickStationLink(){
+                document.querySelector('.station-link').click()
             }
         }
 

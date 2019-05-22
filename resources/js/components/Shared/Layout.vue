@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="sidebar">
-            <inertia-link href="/">Index</inertia-link>
+            <inertia-link href="/stations">Index</inertia-link>
             <inertia-link href="/about">About</inertia-link>
             <inertia-link href="/contact">Info</inertia-link>
         </div>

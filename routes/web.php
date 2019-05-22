@@ -14,4 +14,4 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::resource('/', StationController::class);
+Route::resource('/stations', StationController::class);
