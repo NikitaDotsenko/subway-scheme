@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <Canvas></Canvas>
+        <Canvas class="canvas"></Canvas>
     </layout>
 </template>
 

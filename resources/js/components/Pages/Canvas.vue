@@ -24,18 +24,18 @@
             }
         },
         mounted() {
-            var width = 1000;
-            var height = 1000;
+            let width = 1000;
+            let height = 1000;
 
-            var stage = new Konva.Stage({
+            let stage = new Konva.Stage({
                 container: 'container',
                 width: width,
                 height: height
             });
 
-            var layer = new Konva.Layer();
+            let layer = new Konva.Layer();
 
-            var redLine = new Konva.Line({
+            let redLine = new Konva.Line({
                 points: this.getBranchCoords(this.page.props.redBranch),
                 stroke: 'red',
                 strokeWidth: 10,
@@ -43,7 +43,7 @@
                 lineJoin: 'round'
             });
 
-            var greenLine = new Konva.Line({
+            let greenLine = new Konva.Line({
                 points: this.getBranchCoords(this.page.props.greenBranch),
                 stroke: 'green',
                 strokeWidth: 10,
@@ -51,28 +51,14 @@
                 lineJoin: 'round'
             });
 
-            var blueLine = new Konva.Line({
+            let blueLine = new Konva.Line({
                 points: this.getBranchCoords(this.page.props.blueBranch),
                 stroke: 'blue',
                 strokeWidth: 10,
                 lineCap: 'round',
                 lineJoin: 'round',
-                /*
-                 * line segments with a length of 29px with a gap
-                 * of 20px followed by a line segment of 0.001px (a dot)
-                 * followed by a gap of 20px
-                 */
-                // dash: [29, 20, 0.001, 20]
             });
 
-            /*
-             * since each line has the same point array, we can
-             * adjust the position of each one using the
-             * move() method
-             */
-
-
-            // layer.add(greenLine);
             layer.add(blueLine);
             layer.add(redLine);
             layer.add(greenLine);
@@ -112,28 +98,32 @@
                         data: station,
                         value: station.name.charAt(0)
                     });
+
                     let group = new Konva.Group();
 
                     group.add(circle);
                     group.add(simpleText);
+
                     group.on('mouseover', function () {
-                        let circleData = this.getChildren(function(node){
+                        let circleData = this.getChildren(function (node) {
                             return node.getClassName() === 'Circle';
                         })[0];
+                       let y = ((window.innerHeight - circleData.getAttr('y')) < 170) ? circleData.getAttr('y') - 225 : circleData.getAttr('y')
                         component.showModal = true;
                         component.currentStation = circleData.getAttr('data');
-                        component.currentStationCoords = [circleData.getAttr('x'), circleData.getAttr('y')];
+                        component.currentStationCoords = [circleData.getAttr('x'), y];
                     });
+
                     group.on('mouseout', function () {
                         component.showModal = false;
-                    })
+                    });
 
                     layer.add(group);
-                    // layer.add(simpleText)
                 })
 
             }
         }
+
     }
 </script>
 
