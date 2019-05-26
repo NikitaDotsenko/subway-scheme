@@ -6,7 +6,7 @@
 
 <script>
     import Layout from '@/Shared/Layout'
-    import Canvas from "./Index/Canvas";
+    import Canvas from "@/Pages/Stations/Canvas";
 
     export default {
         components: {

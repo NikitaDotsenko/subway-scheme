@@ -6,7 +6,6 @@
         <StationDataModal v-if="showModal" @close="showModal = false" :station="currentStation"
                           :coords="currentStationCoords">
         </StationDataModal>
-        <inertia-link class="station-link" :href="stationLink"></inertia-link>
     </div>
 </template>
 
@@ -16,13 +15,12 @@
     export default {
         name: "Canvas",
         components: {StationDataModal},
-        inject: ['page'],
         data: function () {
             return {
                 showModal: false,
                 currentStation: null,
                 currentStationCoords: [],
-                stationLink:''
+                stationLink: ''
             }
         },
         mounted() {
@@ -38,7 +36,7 @@
             let layer = new Konva.Layer();
 
             let redLine = new Konva.Line({
-                points: this.getBranchCoords(this.page.props.redBranch),
+                points: this.getBranchCoords(this.$page.redBranch),
                 stroke: 'red',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -46,7 +44,7 @@
             });
 
             let greenLine = new Konva.Line({
-                points: this.getBranchCoords(this.page.props.greenBranch),
+                points: this.getBranchCoords(this.$page.greenBranch),
                 stroke: 'green',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -54,7 +52,7 @@
             });
 
             let blueLine = new Konva.Line({
-                points: this.getBranchCoords(this.page.props.blueBranch),
+                points: this.getBranchCoords(this.$page.blueBranch),
                 stroke: 'blue',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -64,9 +62,9 @@
             layer.add(blueLine);
             layer.add(redLine);
             layer.add(greenLine);
-            this.drawStations(layer, this.page.props.blueBranch, this.page.props.blueBranch.color);
-            this.drawStations(layer, this.page.props.redBranch, this.page.props.redBranch.color);
-            this.drawStations(layer, this.page.props.greenBranch, this.page.props.greenBranch.color);
+            this.drawStations(layer, this.$page.blueBranch, this.$page.blueBranch.color);
+            this.drawStations(layer, this.$page.redBranch, this.$page.redBranch.color);
+            this.drawStations(layer, this.$page.greenBranch, this.$page.greenBranch.color);
 
             // add the layer to the stage
             stage.add(layer);
@@ -106,24 +104,31 @@
                     group.add(circle);
                     group.add(simpleText);
 
-                    group.on('click', function () {
+                    group.on('click', function (e) {
                         let station = this.getChildren(function (node) {
                             return node.getClassName() === 'Circle';
                         })[0];
-                        component.stationLink = `/stations/${station.getAttr('data').id}`
-                        component.clickStationLink()
+
+                        component.$inertia.visit(`/stations/${station.getAttr('data').id}`, {
+                            method: 'get',
+                            data: {},
+                            replace: false,
+                            preserveScroll: false,
+                            preserveState: false
+                        })
+
                     });
-                    group.on('mouseenter', function () {
+                    group.on('mouseover', function () {
                         let circleData = this.getChildren(function (node) {
                             return node.getClassName() === 'Circle';
                         })[0];
-                       let y = ((window.innerHeight - circleData.getAttr('y')) < 170) ? circleData.getAttr('y') - 225 : circleData.getAttr('y')
+                        let y = ((window.innerHeight - circleData.getAttr('y')) < 170) ? circleData.getAttr('y') - 225 : circleData.getAttr('y')
                         component.showModal = true;
                         component.currentStation = circleData.getAttr('data');
                         component.currentStationCoords = [circleData.getAttr('x'), y];
                     });
 
-                    group.on('mouseleave', function () {
+                    group.on('mouseout', function () {
                         component.showModal = false;
                     });
 
@@ -132,9 +137,6 @@
                 })
 
             },
-            clickStationLink(){
-                document.querySelector('.station-link').click()
-            }
         }
 
     }

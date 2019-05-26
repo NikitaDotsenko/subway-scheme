@@ -1,8 +1,8 @@
 <template>
     <main>
         <div class="sidebar">
-            <inertia-link href="/stations">Index</inertia-link>
-            <inertia-link href="/about">About</inertia-link>
+            <inertia-link href="/station">Index</inertia-link>
+            <inertia-link href="/data">Edit data</inertia-link>
             <inertia-link href="/contact">Info</inertia-link>
         </div>
 

@@ -1,11 +1,11 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
 
 //modal styles
 .modal-container {
@@ -47,28 +47,115 @@
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
-main{
+
+main {
     display: flex;
     flex-direction: row;
     width: 100%;
+    position: relative;
 
     .sidebar {
         width: 10%;
-        height: 100%;
         display: flex;
         flex-direction: column;
         text-align: center;
         border-right: 1px solid black;
 
 
-        a{
+        a {
             font-size: 15px;
             color: black;
         }
     }
-    .canvas{
+
+    .canvas {
         display: flex;
         width: 80%;
+    }
+
+    #gallery {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: absolute;
+
+    }
+
+    .open-gallery {
+        right: 0%;
+        width: 20%;
+        border-left: 1px solid black;
+        animation: gallery-on 1s linear;
+        -webkit-animation: gallery-on 1s linear;
+    }
+
+    .close-gallery {
+        display: none;
+        right: 0%;
+        width: 0%;
+        animation: gallery-off 1s linear;
+        -webkit-animation: gallery-off 1s linear;
+    }
+
+
+    @keyframes gallery-on {
+        from {
+            width: 0%;
+
+        }
+        to {
+            width: 20%;
+        }
+    }
+    @-webkit-keyframes gallery-on {
+        from {
+            width: 0%;
+
+        }
+        to {
+            width: 20%;
+        }
+    }
+    //@keyframes gallery-off {
+    //    from {
+    //        width: 20%;
+    //        border-left: 1px solid black;
+    //
+    //    }
+    //    to {
+    //        width: 0%;
+    //        border:none;
+    //
+    //    }
+    //}
+    //@-webkit-keyframes gallery-off {
+    //    from {
+    //        width: 20%;
+    //        border-left: 1px solid black;
+    //    }
+    //    to {
+    //        width: 0%;
+    //        border: none;
+    //    }
+    //}
+
+    .data-content {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+
+        .data-column {
+            flex-direction: column;
+            width: 50%;
+
+            .data-column-header {
+                text-align: center;
+                font-size: 15px;
+                font-weight: bold;
+            }
+        }
+
     }
 }
 

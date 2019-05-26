@@ -9,18 +9,27 @@ use Inertia\Inertia;
 
 class StationController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return Inertia::render('Stations', [
-            'blueBranch' => Branch::find(2)->load(['stations'])->toArray(),
-            'redBranch' => Branch::find(1)->load(['stations'])->toArray(),
-            'greenBranch' => Branch::find(3)->load(['stations'])->toArray()
+            'blueBranch' => Branch::find(2)->load(['stations']),
+            'redBranch' => Branch::find(1)->load(['stations']),
+            'greenBranch' => Branch::find(3)->load(['stations'])
         ]);
     }
 
-    public function show(Station $station, Request $request){
-        return Inertia::render('Station',[
+    public function show(Station $station, Request $request)
+    {
+        return Inertia::render('Station', [
             'name' => $station->name,
-            'branch' => $station->branch->toArray()
+            'branch' => $station->branch
+        ]);
+    }
+
+    public function edit(Station $station, Request $request)
+    {
+        return Inertia::render('StationEdit', [
+            'station' => $station,
         ]);
     }
 }
