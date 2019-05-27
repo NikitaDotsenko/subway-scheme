@@ -30,6 +30,11 @@ class StationController extends Controller
     {
         return Inertia::render('StationEdit', [
             'station' => $station,
+            'branches' => Branch::all()->toArray()
         ]);
+    }
+
+    public function update(Station $station, Request $request){
+        dd($request->all());
     }
 }

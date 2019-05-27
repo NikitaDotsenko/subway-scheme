@@ -12,7 +12,7 @@
     <title>Subway</title>
 </head>
 <body>
-
+@routes
 @inertia
 
 </body>
