@@ -1,11 +1,13 @@
 <template>
     <main>
-        <header>
-            <inertia-link href="/">Map</inertia-link>
-            <inertia-link href="/about">List</inertia-link>
-            <inertia-link href="/contact">Contact</inertia-link>
-        </header>
+        <div class="sidebar">
+            <inertia-link href="/station">Index</inertia-link>
+            <inertia-link href="/data">Edit data</inertia-link>
+            <inertia-link href="/contact">Info</inertia-link>
+        </div>
 
         <slot/>
     </main>
 </template>
+<style scoped>
+</style>

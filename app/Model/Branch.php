@@ -12,6 +12,6 @@ class Branch extends Model
 
     public function stations()
     {
-        return $this->belongsToMany(Station::class);
+        return $this->hasMany(Station::class);
     }
 }

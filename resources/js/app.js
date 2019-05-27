@@ -2,6 +2,7 @@ import Inertia from 'inertia-vue'
 import Vue from 'vue'
 
 Vue.use(Inertia);
+Vue.mixin({ methods: { route: (...args) => window.route(...args).url() } })
 
 let app = document.getElementById('app');
 
@@ -12,4 +13,4 @@ new Vue({
             resolveComponent: name => import(`@/Pages/${name}`).then(module => module.default),
         },
     }),
-}).$mount(app)
+}).$mount(app);
