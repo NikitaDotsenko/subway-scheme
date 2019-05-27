@@ -13,6 +13,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+Route::get('/', IndexController::class);
 Route::resource('/station', StationController::class);
 Route::resource('/data', DataController::class);

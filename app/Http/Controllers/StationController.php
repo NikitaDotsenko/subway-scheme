@@ -21,7 +21,7 @@ class StationController extends Controller
     public function show(Station $station, Request $request)
     {
         return Inertia::render('Station', [
-            'name' => $station->name,
+            'station' => $station,
             'branch' => $station->branch
         ]);
     }

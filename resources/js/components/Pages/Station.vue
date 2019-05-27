@@ -1,7 +1,8 @@
 <template>
     <layout>
-        <div>
-            <p>{{name}}</p>
+        <div class="station-data-block">
+            <p>{{station.name}}</p>
+            <p><span>Ветка: </span>{{branch.name}}</p>
         </div>
     </layout>
 </template>
@@ -15,7 +16,7 @@
             Layout,
         },
         props: {
-            name: '',
+            station: null,
             branch: null
         }
     }

@@ -53,6 +53,8 @@ main {
     flex-direction: row;
     width: 100%;
     position: relative;
+    min-height: 100vh;
+
 
     .sidebar {
         width: 10%;
@@ -156,6 +158,10 @@ main {
             }
         }
 
+    }
+
+    .station-data-block{
+        margin: 0 50px;
     }
 }
 

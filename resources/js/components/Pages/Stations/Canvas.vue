@@ -109,7 +109,7 @@
                             return node.getClassName() === 'Circle';
                         })[0];
 
-                        component.$inertia.visit(`/stations/${station.getAttr('data').id}`, {
+                        component.$inertia.visit(`/station/${station.getAttr('data').id}`, {
                             method: 'get',
                             data: {},
                             replace: false,
