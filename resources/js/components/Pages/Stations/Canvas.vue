@@ -36,7 +36,7 @@
             let layer = new Konva.Layer();
 
             let redLine = new Konva.Line({
-                points: this.getBranchCoords(this.$page.redBranch),
+                points: this.getBranchCoords($page.redBranch),
                 stroke: 'red',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -44,7 +44,7 @@
             });
 
             let greenLine = new Konva.Line({
-                points: this.getBranchCoords(this.$page.greenBranch),
+                points: this.getBranchCoords($page.greenBranch),
                 stroke: 'green',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -52,7 +52,7 @@
             });
 
             let blueLine = new Konva.Line({
-                points: this.getBranchCoords(this.$page.blueBranch),
+                points: this.getBranchCoords($page.blueBranch),
                 stroke: 'blue',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -62,9 +62,9 @@
             layer.add(blueLine);
             layer.add(redLine);
             layer.add(greenLine);
-            this.drawStations(layer, this.$page.blueBranch, this.$page.blueBranch.color);
-            this.drawStations(layer, this.$page.redBranch, this.$page.redBranch.color);
-            this.drawStations(layer, this.$page.greenBranch, this.$page.greenBranch.color);
+            this.drawStations(layer, $page.blueBranch, $page.blueBranch.color);
+            this.drawStations(layer, $page.redBranch, $page.redBranch.color);
+            this.drawStations(layer, $page.greenBranch, $page.greenBranch.color);
 
             // add the layer to the stage
             stage.add(layer);
@@ -143,10 +143,5 @@
 </script>
 
 <style scoped>
-    body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #f0f0f0;
-    }
+
 </style>
