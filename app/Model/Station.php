@@ -3,10 +3,14 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Station extends Model
+class Station extends Model implements HasMedia
 {
-    protected $fillable = ['name', 'logo', 'description'];
+    use HasMediaTrait;
+
+    protected $fillable = ['name', 'description'];
 
     public function previousStation()
     {
