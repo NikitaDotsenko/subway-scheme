@@ -23,10 +23,13 @@
                 stationLink: ''
             }
         },
+        props:{
+            stations:{}
+        },
         mounted() {
             let width = 1000;
             let height = 1000;
-
+            console.log(this.stations)
             let stage = new Konva.Stage({
                 container: 'container',
                 width: width,
@@ -36,7 +39,7 @@
             let layer = new Konva.Layer();
 
             let redLine = new Konva.Line({
-                points: this.getBranchCoords($page.redBranch),
+                points: this.getBranchCoords(this.stations.redBranch),
                 stroke: 'red',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -44,7 +47,7 @@
             });
 
             let greenLine = new Konva.Line({
-                points: this.getBranchCoords($page.greenBranch),
+                points: this.getBranchCoords(this.stations.greenBranch),
                 stroke: 'green',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -52,7 +55,7 @@
             });
 
             let blueLine = new Konva.Line({
-                points: this.getBranchCoords($page.blueBranch),
+                points: this.getBranchCoords(this.stations.blueBranch),
                 stroke: 'blue',
                 strokeWidth: 10,
                 lineCap: 'round',
@@ -62,9 +65,9 @@
             layer.add(blueLine);
             layer.add(redLine);
             layer.add(greenLine);
-            this.drawStations(layer, $page.blueBranch, $page.blueBranch.color);
-            this.drawStations(layer, $page.redBranch, $page.redBranch.color);
-            this.drawStations(layer, $page.greenBranch, $page.greenBranch.color);
+            this.drawStations(layer, this.stations.blueBranch, this.stations.blueBranch.color);
+            this.drawStations(layer, this.stations.redBranch, this.stations.redBranch.color);
+            this.drawStations(layer, this.stations.greenBranch, this.stations.greenBranch.color);
 
             // add the layer to the stage
             stage.add(layer);

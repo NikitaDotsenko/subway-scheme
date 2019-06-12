@@ -1,6 +1,7 @@
 <template>
     <layout>
-        <Canvas class="canvas"></Canvas>
+        <Canvas :stations="{redBranch:this.redBranch,blueBranch:this.blueBranch,greenBranch:this.greenBranch}"
+                class="canvas"></Canvas>
     </layout>
 </template>
 
@@ -13,10 +14,10 @@
             Canvas,
             Layout,
         },
-        props:{
-            'blueBranch':null,
-            'redBranch':null,
-            'greenBranch':null
+        props: {
+            'blueBranch': null,
+            'redBranch': null,
+            'greenBranch': null
         },
     }
 </script>
