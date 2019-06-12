@@ -58,7 +58,6 @@
                         'Accept': 'application/json'
                     }
                 })
-
             },
 
             processLogo(event) {
