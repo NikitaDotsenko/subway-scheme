@@ -16,7 +16,7 @@ class UpdateExistingStationRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3'],
             'branch_id' => ['required', 'integer', 'exists:branches,id'],
-            'logo' => ['required', 'image']
+            'logo' => ['nullable', 'image']
         ];
     }
 }

@@ -36,7 +36,7 @@
                 form: {
                     name: this.station.name,
                     branch_id: this.station.branch_id,
-                    logo: File,
+                    logo: null,
                     _method:'put'
                 },
                 sending: window.loading,
@@ -48,7 +48,9 @@
                 let formData = new FormData();
 
                 for (let elem in this.form) {
-                    formData.append(elem, this.form[elem])
+                    if (this.form.hasOwnProperty(elem) && this.form[elem] !== null) {
+                        formData.append(elem, this.form[elem])
+                    }
                 }
 
                 this.$inertia.post(this.route('station.update', this.station.id), formData, {}, {
