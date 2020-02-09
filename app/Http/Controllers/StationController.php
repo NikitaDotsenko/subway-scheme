@@ -45,10 +45,13 @@ class StationController extends Controller
         }
         DB::transaction(function () use ($station, $request){
             $station->update($request->validated());
-            $station->addMedia($request->file('logo'))->toMediaCollection('station_logos');
+            if(!blank($request->file('logo'))) {
+                $station->addMedia($request->file('logo'))->toMediaCollection('station_logos');
+            }
             $station->branch()->associate(Branch::find($request->input('branch_id')));
             $station->save();
         });
+
         return Redirect::route('station.show',['station'=>$station->id]);
     }
 }
