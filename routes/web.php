@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+/*
+ * Entry point
+ */
+Route::get('/', IndexController::class);
+/*
+ * Station's routes
+ */
+Route::resource('/station', StationController::class);
+/*
+ * Stations data
+ */
+Route::get('/data', 'DataController@index');
