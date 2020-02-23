@@ -11,13 +11,15 @@
 |
 */
 
-use App\Http\Controllers\StationController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-
 /*
  * Entry point
  */
+
+use App\Http\Controllers\DataController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\StationController;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', IndexController::class);
 /*
  * Station's routes
@@ -26,4 +28,4 @@ Route::resource('/station', StationController::class);
 /*
  * Stations data
  */
-Route::get('/data', 'DataController@index');
+Route::resource('/data', DataController::class);
