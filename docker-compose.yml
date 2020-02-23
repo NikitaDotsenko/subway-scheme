@@ -1,0 +1,55 @@
+version: "3"
+
+volumes:
+  my-db:
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - "80:80"
+    links:
+      - php-fpm
+    volumes:
+      - ./:/var/www/html:cached
+
+  php-fpm:
+    build:
+      context: .
+      dockerfile: docker/php-fpm/Dockerfile
+    volumes:
+      - ./:/var/www/html:cached
+    links:
+      - mysql
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/cron/Dockerfile
+    container_name: laravel-scheduler
+    volumes:
+      - .:/var/www/html:cached
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3309:3306"
+    env_file:
+      - .env
+    volumes:
+      - my-db:/var/lib/mysql:cached
+
+  node:
+    image: node:8.16.1
+    entrypoint:
+      - /bin/bash
+    volumes:
+      - ./:/var/www/html:cached
+    working_dir: /var/www/html
+    tty: true
+    env_file:
+      - .env
+    environment:
+      - HOME=/var/www/html
